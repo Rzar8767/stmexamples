@@ -1,0 +1,53 @@
+
+// OnBoard
+PA0 = onboard Button (blue)
+
+// ADC
+PA1 = ADC1 input
+PA2 = ADC2 input
+
+// DAC
+PA4 = DAC channel 1 output
+PA5 = DAC channel 2 output
+
+// SPI
+PB14 = MISO
+PB15 = MOSI
+
+// USART
+PC10 = RxD
+PC11 = TxD
+
+PD0 = ExternButton K0
+PD1 = ExternButton K1
+PD2 = ExternButton K2
+PD3 = ExternButton K3
+
+// onboardDiode
+PD12 = Green
+PD13 = Orange
+PD14 = Red
+PD15 = Blue
+
+// LED Display
+
+PE0 = segment a
+PE1 = segment b
+PE2 = segment c
+PE3 = segment d
+PE4 = segment e
+PE5 = segment f
+PE6 = segment g
+PE7 = segment h
+
+PE12 = 1
+PE13 = 2
+PE14 = 3
+PE15 = 4
+
+//timer4 channels
+TIM4_CH1 LED GREEN
+TIM4_CH2 LED ORANGE
+TIM4_CH3 LED RED
+TIM4_CH4 LED BLUE
+
