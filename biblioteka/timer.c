@@ -13,3 +13,28 @@ void initTimerAdv(uint16_t presc, uint32_t period, uint32_t RCC_APB1Periph_TIMx,
 		TIM_TimeBaseInit(TIMx, &TIM_TimeBaseStructure);
 		TIM_Cmd(TIMx, state);
 }
+
+// example:
+void initTimerTIME(uint8_t miliseconds, TIM_TypeDef* TIMx, FunctionalState state)
+{
+	uint32_t period;
+	period = (miliseconds*10)-1;
+
+	uint32_t RCC_APB1Periph_TIMx;
+	switch(TIMx)
+	{
+	  case TIM2:
+		  	  RCC_APB1Periph_TIMx = RCC_APB1Periph_TIM2;
+		  break;
+	  case TIM3:
+	  		  RCC_APB1Periph_TIMx = RCC_APB1Periph_TIM3;
+	  	  break;
+	  case TIM4:
+	  		  RCC_APB1Periph_TIMx = RCC_APB1Periph_TIM4;
+	  	  break;
+	  case TIM5:
+	  		  RCC_APB1Periph_TIMx = RCC_APB1Periph_TIM5;
+	  	  break;
+	}
+		initTimerAdv(8399, period, RCC_APB1Periph_TIMx, TIMx, ENABLE)
+}
