@@ -1,8 +1,8 @@
 #include "stm32f4xx.h"
 #include "stm32f4_discovery.h"
 
-
-void Timer_Config(uint16_t presc, uint32_t period, uint32_t RCC_APB1Periph_TIMx, TIM_TypeDef* TIMx, FunctionalState state)
+// example:	initTimerAdv(8399, 9999, RCC_APB1Periph_TIM4, TIM4, ENABLE);  - wyzwalanie co sekunde timera4
+void initTimerAdv(uint16_t presc, uint32_t period, uint32_t RCC_APB1Periph_TIMx, TIM_TypeDef* TIMx, FunctionalState state)
 {
 		RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIMx, ENABLE );
 		TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure; //84mhz 84000000
