@@ -8,9 +8,16 @@ void initGPIO(uint32_t RCC_AHB1Periph_GPIOx,GPIO_TypeDef* GPIOx , uint32_t Pins)
 void initGPIOadv(uint32_t RCC_AHB1Periph_GPIOx,GPIO_TypeDef* GPIOx , uint32_t Pins, GPIOMode_TypeDef Mode, GPIOPuPd_TypeDef PuPd);
 
 // PD12 = GREEN; PD13 = ORANGE; PD14 = RED; PD15 = BLUE;
-// piny PD12, PD13, PD14, PD15
+// pins PD12, PD13, PD14, PD15
 void initOnBoardDiodes() {
 	initGPIO(RCC_AHB1Periph_GPIOD,GPIOD,GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15);
+}
+
+// to check the state
+// GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_0);
+// 1 when pushed
+void initOnBoardButton() {
+	initGPIOadv(RCC_AHB1Periph_GPIOA, GPIOA, GPIO_Pin_0, GPIO_Mode_IN, GPIO_PuPd_NOPULL);
 }
 
 // Initializes GPIO in input/output mode
