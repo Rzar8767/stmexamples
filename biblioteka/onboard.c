@@ -40,3 +40,34 @@ void initGPIO(uint32_t RCC_AHB1Periph_GPIOx,GPIO_TypeDef* GPIOx , uint32_t Pins)
 	initGPIOadv(RCC_AHB1Periph_GPIOx,GPIOx,Pins, GPIO_Mode_OUT,GPIO_PuPd_NOPULL);
 }
 
+void initExtiIRQ(){
+
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
+
+	NVIC_InitTypeDef NVIC_InitStructure;
+	// numer przerwania
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;
+	// priorytet g³ówny
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
+	// subpriorytet
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
+	// uruchom dany kana³
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	// zapisz wype³nion¹ strukturê do rejestrów
+	NVIC_Init(&NVIC_InitStructure);
+
+	EXTI_InitTypeDef EXTI_InitStructure;
+	// wybór numeru aktualnie konfigurowanej linii przerwañ
+	EXTI_InitStructure.EXTI_Line = EXTI_Line0;
+	// wybór trybu - przerwanie b¹dŸ zdarzenie
+	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+	// wybór zbocza, na które zareaguje przerwanie
+	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
+	// uruchom dan¹ liniê przerwañ
+	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+	// zapisz strukturê konfiguracyjn¹ przerwañ zewnêtrznych do rejestrów
+	EXTI_Init(&EXTI_InitStructure);
+
+	// pod³¹czenie danego pinu portu do kontrolera przerwañ
+	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource0);
+}

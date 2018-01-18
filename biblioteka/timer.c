@@ -1,6 +1,8 @@
 #include "stm32f4xx.h"
 #include "stm32f4_discovery.h"
 
+//Timer
+
 // example:	initTimerAdv(8399, 9999, RCC_APB1Periph_TIM4, TIM4, ENABLE);  - wyzwalanie co sekunde timera4
 void initTimerAdv(uint16_t presc, uint32_t period, TIM_TypeDef* TIMx, FunctionalState state)
 {
@@ -16,20 +18,30 @@ void initTimerAdv(uint16_t presc, uint32_t period, TIM_TypeDef* TIMx, Functional
 
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIMx, ENABLE );
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure; //84mhz 84000000
-	TIM_TimeBaseStructure.TIM_Prescaler = presc;		TIM_TimeBaseStructure.TIM_Period = period;
+	TIM_TimeBaseStructure.TIM_Prescaler = presc;
+	TIM_TimeBaseStructure.TIM_Period = period;
 	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBaseStructure.TIM_CounterMode =  TIM_CounterMode_Up;
 	TIM_TimeBaseInit(TIMx, &TIM_TimeBaseStructure);
 	TIM_Cmd(TIMx, state);
 }
 
-// example: initTime(250, TIM4, ENABLE); wlaczy timer na 0.25s
+//timerState(TIM4, ENABLE);
+void timerState(TIM_TypeDef* TIMx, FunctionalState state){
+	TIM_Cmd(TIMx, state);
+}
+
+//int freq = 1000/4;
+//initTime(freq,TIM4,ENABLE); wlaczy timer z czestotliwoscia 4Hz
+//
+//initTime(250, TIM4, ENABLE); wlaczy timer na 0.25s
+//reinitialize to change time
 void initTime(uint16_t miliseconds, TIM_TypeDef* TIMx, FunctionalState state)
 {
 	uint32_t period;
 	period = (miliseconds*10)-1;
 
-	initTimerAdv(8399, period, TIMx, ENABLE);
+	initTimerAdv(8399, period, TIMx, state);
 }
 
 // Timer_IRQ(TIM4,TIM4_IRQn, 0);
@@ -63,3 +75,5 @@ void TIM4_IRQHandler(void)
                 TIM_ClearITPendingBit(TIM4, TIM_IT_Update);
          	}
 }*/
+
+//PWM
