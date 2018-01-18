@@ -5,7 +5,7 @@
 
 void initOnBoardDiodes();
 void initGPIO(uint32_t RCC_AHB1Periph_GPIOx,GPIO_TypeDef* GPIOx , uint32_t Pins);
-void initGPIOext(uint32_t RCC_AHB1Periph_GPIOx,GPIO_TypeDef* GPIOx , uint32_t Pins, GPIOMode_TypeDef Mode, GPIOPuPd_TypeDef PuPd);
+void initGPIOadv(uint32_t RCC_AHB1Periph_GPIOx,GPIO_TypeDef* GPIOx , uint32_t Pins, GPIOMode_TypeDef Mode, GPIOPuPd_TypeDef PuPd);
 
 // PD12 = GREEN; PD13 = ORANGE; PD14 = RED; PD15 = BLUE;
 // piny PD12, PD13, PD14, PD15
@@ -14,8 +14,8 @@ void initOnBoardDiodes() {
 }
 
 // Initializes GPIO in input/output mode
-// GPIO_Config(RCC_AHB1Periph_GPIOD,GPIOD,GPIO_Pin_12 | GPIO_Pin_13,GPIO_Mode_OUT,GPIO_PuPd_NOPULL);
-void initGPIOext(uint32_t RCC_AHB1Periph_GPIOx,GPIO_TypeDef* GPIOx , uint32_t Pins, GPIOMode_TypeDef Mode, GPIOPuPd_TypeDef PuPd){
+// initGPIOadv(RCC_AHB1Periph_GPIOD,GPIOD,GPIO_Pin_12 | GPIO_Pin_13,GPIO_Mode_OUT,GPIO_PuPd_NOPULL);
+void initGPIOadv(uint32_t RCC_AHB1Periph_GPIOx,GPIO_TypeDef* GPIOx , uint32_t Pins, GPIOMode_TypeDef Mode, GPIOPuPd_TypeDef PuPd){
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOx, ENABLE);
 
 	GPIO_InitTypeDef  GPIO_InitStructure;
@@ -30,6 +30,6 @@ void initGPIOext(uint32_t RCC_AHB1Periph_GPIOx,GPIO_TypeDef* GPIOx , uint32_t Pi
 // Initializes GPIO in output mode
 // initGPIO(RCC_AHB1Periph_GPIOD,GPIOD,GPIO_Pin_12 | GPIO_Pin_13);
 void initGPIO(uint32_t RCC_AHB1Periph_GPIOx,GPIO_TypeDef* GPIOx , uint32_t Pins){
-	initGPIOext(RCC_AHB1Periph_GPIOx,GPIOx,Pins, GPIO_Mode_OUT,GPIO_PuPd_NOPULL);
+	initGPIOadv(RCC_AHB1Periph_GPIOx,GPIOx,Pins, GPIO_Mode_OUT,GPIO_PuPd_NOPULL);
 }
 
