@@ -31,3 +31,35 @@ void initTime(uint16_t miliseconds, TIM_TypeDef* TIMx, FunctionalState state)
 
 	initTimerAdv(8399, period, TIMx, ENABLE);
 }
+
+// Timer_IRQ(TIM4,TIM4_IRQn, 0);
+void initTimerIRQ(TIM_TypeDef* TIMx, uint8_t TIMx_IRQn, uint8_t priority )
+{
+	// ustawienie trybu pracy priorytetów przerwañ
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
+	NVIC_InitTypeDef NVIC_InitStructure;
+	// numer przerwania
+	NVIC_InitStructure.NVIC_IRQChannel = TIMx_IRQn;
+	// priorytet g³ówny
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = priority;
+	// subpriorytet
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
+	// uruchom dany kana³
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	// zapisz wype³nion¹ strukturê do rejestrów
+	NVIC_Init(&NVIC_InitStructure);
+	// wyczyszczenie przerwania od timera 3 (wyst¹pi³o przy konfiguracji timera)
+	TIM_ClearITPendingBit(TIMx, TIM_IT_Update);
+	// zezwolenie na przerwania od przepe³nienia dla timera 3
+	TIM_ITConfig(TIMx, TIM_IT_Update, ENABLE);
+}
+
+/* TIMER IRQHANDLER EXAMPLE
+void TIM4_IRQHandler(void)
+{
+         	if(TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)
+         	{
+            	GPIO_ToggleBits(GPIOD, GPIO_Pin_12);
+                TIM_ClearITPendingBit(TIM4, TIM_IT_Update);
+         	}
+}*/
