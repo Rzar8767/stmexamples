@@ -1,11 +1,13 @@
 
 #include "stm32f4xx.h"
 #include "stm32f4_discovery.h"
-			
-void initOnBoardDiodes();
+
+// requires onboard.c
+// requires externButtons.c
+
 void initExternalButtons();
 uint8_t readExternalButton(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
-
+void initOnBoardDiodes();
 
 void zad2_init();
 void zad2_loop();
@@ -133,6 +135,8 @@ void zad3_init()
 	initOnBoardDiodes();
 	initExternalButtons();
 }
+
+// zalacz/wylacz przy wcisnieciu
 void zad3_loop()
 {
 	button0 = readExternalButton(GPIOD, GPIO_Pin_0);
@@ -164,6 +168,7 @@ void zad3_loop()
 	button3_prevState = button3;
 }
 
+
 void zad2_init()
 {
 	initOnBoardDiodes();
@@ -171,6 +176,7 @@ void zad2_init()
 
 }
 
+// wcisniety przycisk = dioda zapalona
 void zad2_loop()
 {
 	button0 = readExternalButton(GPIOD, GPIO_Pin_0);
@@ -196,40 +202,6 @@ void zad2_loop()
 
 }
 
-void initOnBoardDiodes()
-{
-	 /* GPIOD Periph clock enable */
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
 
-    GPIO_InitTypeDef  GPIO_InitStructure;
-    /* Configure PD12, PD13, PD14 and PD15 in output pushpull mode */
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12 | GPIO_Pin_13| GPIO_Pin_14| GPIO_Pin_15;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
-    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-    GPIO_Init(GPIOD, &GPIO_InitStructure);
-}
 
-// piny PD0 = K0, PD1 = K1, PD2 = K2, PD3 = K3
-void initExternalButtons()
-{
-	 /* GPIOD Periph clock enable */
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
-
-	 GPIO_InitTypeDef  GPIO_InitStructure;
-	/* Configure PD0, PD1, PD2 and PD3 in input push down mode */
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1| GPIO_Pin_2| GPIO_Pin_3;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
-	GPIO_Init(GPIOD, &GPIO_InitStructure);
-}
-
-// pod³¹czone jak Pull Up wiêc nalezy zanegowac dla bardziej logicznych stanow
-uint8_t readExternalButton(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
-{
-	return !GPIO_ReadInputDataBit(GPIOx, GPIO_Pin);
-}
 
