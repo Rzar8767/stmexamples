@@ -75,6 +75,8 @@ void initExtiIRQ(uint8_t EXTx_IRQn, uint32_t EXTI_Linex,uint8_t EXTI_PortSourceG
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOx, EXTI_PinSourcex);
 }
 
+// Initializes onboard blue button
+// initGPIO();
 void initOnBoardButtonIRQ(){
 	initExtiIRQ(EXTI0_IRQn, EXTI_Line0,EXTI_PortSourceGPIOA, EXTI_PinSource0);
 }

@@ -142,7 +142,17 @@ void initPWMChannel(TIM_TypeDef* TIMx, uint8_t channel, GPIO_TypeDef* GPIOx,uint
 		TIM_OC4PreloadConfig(TIMx, TIM_OCPreload_Enable);
 	}
 
-	GPIO_PinAFConfig(GPIOx, GPIO_PinSourcex, GPIO_AF_TIM4);
+	uint32_t GPIO_AF_TIMx;
+		if(TIMx == TIM2)
+			GPIO_AF_TIMx = GPIO_AF_TIM2;
+		else if(TIMx ==  TIM3)
+			GPIO_AF_TIMx = GPIO_AF_TIM3;
+		else if(TIMx ==  TIM4)
+			GPIO_AF_TIMx = GPIO_AF_TIM4;
+		else if(TIMx ==  TIM5)
+			GPIO_AF_TIMx = GPIO_AF_TIM5;
+
+	GPIO_PinAFConfig(GPIOx, GPIO_PinSourcex, GPIO_AF_TIMx);
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_x;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 	GPIO_Init(GPIOx, &GPIO_InitStructure);
