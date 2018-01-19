@@ -64,8 +64,12 @@ void initTimerTime(uint16_t miliseconds, TIM_TypeDef* TIMx, FunctionalState stat
 }
 
 //Here you can set timer interrupt
+<<<<<<< HEAD
 //priority - lower digit <=> higher priority
 //initTimerIRQ(TIM4,TIM4_IRQn, 0);
+=======
+//initTimerIRQ(TIM4, TIM4_IRQn, 0);
+>>>>>>> 62e72ec8068ff959e135a5e19699ce9f834fa7cd
 void initTimerIRQ(TIM_TypeDef* TIMx, uint8_t TIMx_IRQn, uint8_t priority )
 {
 	// ustawienie trybu pracy priorytetów przerwañ
@@ -114,7 +118,7 @@ void initPWMTime(uint32_t miliseconds, TIM_TypeDef* TIMx) {
 }
 
 //Then you have to initialize PWM Channel (there are only 4 timer channels)
-//initPWMChannel(TIM4,1,GPIOD,GPIO_PinSource12,GPIO_Pin_12);
+//initPWMChannel(TIM4,1, GPIOD,GPIO_PinSource12, GPIO_Pin_12);
 void initPWMChannel(TIM_TypeDef* TIMx, uint8_t channel, GPIO_TypeDef* GPIOx,uint8_t GPIO_PinSourcex,uint32_t GPIO_Pin_x){
 
 	GPIO_InitTypeDef GPIO_InitStructure;
@@ -161,7 +165,7 @@ void initPWMChannel(TIM_TypeDef* TIMx, uint8_t channel, GPIO_TypeDef* GPIOx,uint
 }
 
 //You can set PWM channel width in percent whenever you want (but for sure after PWM init), this one uses period
-//setPWMWidthPeriod(TIM4,1,20, 9999);
+//setPWMWidthPeriod(TIM4, 1, 20, 9999);
 void setPWMWidthPeriod(TIM_TypeDef* TIMx, uint8_t channel, uint8_t percent, uint16_t period){
 	if(channel == 1){
 		TIMx->CCR1 = (percent*(period+1))/100;
@@ -178,8 +182,13 @@ void setPWMWidthPeriod(TIM_TypeDef* TIMx, uint8_t channel, uint8_t percent, uint
 	}
 }
 
+<<<<<<< HEAD
 //You can set PWM channel width in percent whenever you want (but for sure after PWM init), this one uses miliseconds
 //setPWMWidthMiliseconds(TIM4,1,20, 100);
+=======
+//You can set PWM channel width in percent whenever you want (but for sure after PWM init), this one uses period
+//setPWMWidthMiliseconds(TIM4, 1, 20, 100);
+>>>>>>> 62e72ec8068ff959e135a5e19699ce9f834fa7cd
 void setPWMWidthMiliseconds(TIM_TypeDef* TIMx, uint8_t channel, uint8_t percent, uint16_t miliseconds){
 	setPWMWidthPeriod(TIMx,channel,percent,(miliseconds*10)-1);
 }
