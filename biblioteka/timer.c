@@ -2,7 +2,7 @@
 #include "stm32f4_discovery.h"
 
 //Timer
-void initTimerAdv(uint16_t presc, uint32_t period, TIM_TypeDef* TIMx, FunctionalState state);
+void initTimerPresc(uint16_t presc, uint32_t period, TIM_TypeDef* TIMx, FunctionalState state);
 void initTimerTime(uint16_t miliseconds, TIM_TypeDef* TIMx, FunctionalState state);
 void initTimerIRQ(TIM_TypeDef* TIMx, uint8_t TIMx_IRQn, uint8_t priority );
 void setTimerState(TIM_TypeDef* TIMx, FunctionalState state);
@@ -20,8 +20,8 @@ void startPWM(TIM_TypeDef* TIMx);
 // unsigned int counter = TIMx->CNT; reading timer value
 
 //First of all you have to init your Timer, this one uses prescaler and period
-//initTimerAdv(8399, 9999, TIM4, ENABLE);  - initialize timer for 1s
-void initTimerAdv(uint16_t presc, uint32_t period, TIM_TypeDef* TIMx, FunctionalState state)
+//initTimerPresc(8399, 9999, TIM4, ENABLE);  - initialize timer for 1s
+void initTimerPresc(uint16_t presc, uint32_t period, TIM_TypeDef* TIMx, FunctionalState state)
 {
 	uint32_t RCC_APB1Periph_TIMx;
 	if(TIMx == TIM2)
@@ -60,7 +60,7 @@ void initTimerTime(uint16_t miliseconds, TIM_TypeDef* TIMx, FunctionalState stat
 	uint32_t period;
 	period = (miliseconds*10)-1;
 
-	initTimerAdv(8399, period, TIMx, state);
+	initTimerPresc(8399, period, TIMx, state);
 }
 
 //Here you can set timer interrupt
@@ -102,7 +102,7 @@ void TIM4_IRQHandler(void)
 //     ||  First of all you have to initialize PWM Timer
 //	   \/  initPWM(9999, TIM4);
 void initPWM(uint32_t period, TIM_TypeDef* TIMx) {
-	initTimerAdv(8399, period, TIMx, DISABLE);
+	initTimerPresc(8399, period, TIMx, DISABLE);
 }
 
 //     || Remember to INITIALIZE GPIO
