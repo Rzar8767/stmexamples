@@ -14,6 +14,12 @@ PA5 = DAC channel 2 output
 PB14 = MISO
 PB15 = MOSI
 
+// PWM T3 - there are also other combinations
+PC6 = TIM3_CH1
+PC7 = TIM3_CH2
+PC8 = TIM3_CH3
+PC9 = TIM3_CH4
+
 // USART
 PC10 = RxD
 PC11 = TxD
