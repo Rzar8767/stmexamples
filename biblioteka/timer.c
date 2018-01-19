@@ -51,7 +51,7 @@ void setTimerState(TIM_TypeDef* TIMx, FunctionalState state){
 
 //////    FREQUENCY   ///////////
 //int freq = 1000/4;
-//initTime(freq,TIM4,ENABLE); initialize timer with 4Hz frequency
+//initTimerTime(freq,TIM4,ENABLE); initialize timer with 4Hz frequency
 
 //First of all you have to init your Timer, this one uses miliseconds
 //initTimerTime(250, TIM4, ENABLE); - initialize timer for 0.25s
@@ -106,6 +106,10 @@ void TIM4_IRQHandler(void)
 void initPWM(uint32_t period, TIM_TypeDef* TIMx) {
 	initTimerPresc(8399, period, TIMx, DISABLE);
 }
+
+//////    FREQUENCY   ///////////
+//int freq = 1000/4;
+//initPWMTime(freq,TIM4,DISABLE); initialize PWM with 4Hz frequency
 
 //     || Remember to INITIALIZE GPIO
 //     ||  First of all you have to initialize PWM Timer
