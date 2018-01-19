@@ -64,6 +64,7 @@ void initTimerTime(uint16_t miliseconds, TIM_TypeDef* TIMx, FunctionalState stat
 }
 
 //Here you can set timer interrupt
+//priority - lower digit <=> higher priority
 //initTimerIRQ(TIM4,TIM4_IRQn, 0);
 void initTimerIRQ(TIM_TypeDef* TIMx, uint8_t TIMx_IRQn, uint8_t priority )
 {
@@ -177,7 +178,7 @@ void setPWMWidthPeriod(TIM_TypeDef* TIMx, uint8_t channel, uint8_t percent, uint
 	}
 }
 
-//You can set PWM channel width in percent whenever you want (but for sure after PWM init), this one uses period
+//You can set PWM channel width in percent whenever you want (but for sure after PWM init), this one uses miliseconds
 //setPWMWidthMiliseconds(TIM4,1,20, 100);
 void setPWMWidthMiliseconds(TIM_TypeDef* TIMx, uint8_t channel, uint8_t percent, uint16_t miliseconds){
 	setPWMWidthPeriod(TIMx,channel,percent,(miliseconds*10)-1);
