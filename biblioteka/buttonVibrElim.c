@@ -12,6 +12,8 @@ void initVibrElim();
 // USES TIMER2 and EXT0
 // CONFIGURE FUNCTION onBoardButtonLogic(); FOR THE BEHAVIOR WHEN BUTTON IS PRESSED
 // PRIOR TO USING initVibrElim(); REMEMBER TO USE initOnBoardButton(); !
+// ALSO UNCOMMENT HERE
+/* <-
 
 void EXTI0_IRQHandler(void)
 {
@@ -54,3 +56,4 @@ void onBoardButtonLogic()
 
 }
 */
+
