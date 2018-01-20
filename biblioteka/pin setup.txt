@@ -11,6 +11,7 @@ PA4 = DAC channel 1 output
 PA5 = DAC channel 2 output
 
 // SPI
+PB13 = SCK
 PB14 = MISO
 PB15 = MOSI
 

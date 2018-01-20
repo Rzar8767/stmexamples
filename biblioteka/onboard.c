@@ -10,6 +10,12 @@ void initGPIO(uint32_t RCC_AHB1Periph_GPIOx,GPIO_TypeDef* GPIOx , uint32_t Pins)
 void initGPIOadv(uint32_t RCC_AHB1Periph_GPIOx,GPIO_TypeDef* GPIOx , uint32_t Pins, GPIOMode_TypeDef Mode, GPIOPuPd_TypeDef PuPd);
 void initExtiIRQ(uint8_t EXTx_IRQn, uint32_t EXTI_Linex,uint8_t EXTI_PortSourceGPIOx, uint8_t EXTI_PinSourcex);
 
+/*
+ SET
+ CMSIS->DEVICE->stm32f4xx.h
+ #define HSE_VALUE    ((uint32_t)8000000)
+ */
+
 // PD12 = GREEN; PD13 = ORANGE; PD14 = RED; PD15 = BLUE;
 // pins PD12, PD13, PD14, PD15
 void initOnBoardDiodes() {
