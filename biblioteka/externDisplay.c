@@ -13,8 +13,9 @@ void displayNumber(int num);
 void displayNothing();
 void initNumbers();
 
-
 void setDisplay(int pos);
+
+
 
 // new naming convention, old one kept for compatibility
 void setDisplay(int pos)
