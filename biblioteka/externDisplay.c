@@ -14,8 +14,14 @@ void displayNothing();
 void initNumbers();
 
 
+void setDisplay(int pos);
 
-
+// new naming convention, old one kept for compatibility
+void setDisplay(int pos)
+{
+	// set digit of LED Display, choose from 1 to 4, negative version to reset segment
+	setDigit(pos);
+}
 
 // set digit of LED Display, choose from 1 to 4, negative version to reset segment
 void setDigit(int num)
