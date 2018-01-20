@@ -42,6 +42,8 @@ void initGPIOadv(uint32_t RCC_AHB1Periph_GPIOx,GPIO_TypeDef* GPIOx , uint32_t Pi
 void initGPIO(uint32_t RCC_AHB1Periph_GPIOx,GPIO_TypeDef* GPIOx , uint32_t Pins){
 	initGPIOadv(RCC_AHB1Periph_GPIOx,GPIOx,Pins, GPIO_Mode_OUT,GPIO_PuPd_NOPULL);
 }
+
+//////////////////////////////////////          EXTI           /////////////////////////////////////////////
 //   initExtiIRQ(EXTI0_IRQn, EXTI_Line0,EXTI_PortSourceGPIOA, EXTI_PinSource0); uruchomienie przerwania User Buttona
 void initExtiIRQ(uint8_t EXTx_IRQn, uint32_t EXTI_Linex,uint8_t EXTI_PortSourceGPIOx, uint8_t EXTI_PinSourcex){
 
