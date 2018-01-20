@@ -63,8 +63,6 @@ void initTimerTime(uint16_t miliseconds, TIM_TypeDef* TIMx, FunctionalState stat
 	initTimerPresc(8399, period, TIMx, state);
 }
 
-//////////////////////////////////////          TIMER  IRQ        /////////////////////////////////////////////
-
 //Here you can set timer interrupt
 //priority - lower digit <=> higher priority
 //initTimerIRQ(TIM4,TIM4_IRQn, 0);

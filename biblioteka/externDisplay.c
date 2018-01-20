@@ -13,7 +13,6 @@ void displayNumber(int num);
 void initNumbers();
 void displayOnePosition(int position);
 
-<<<<<<< HEAD
 // sets only one digit at time
 void displayOnePosition(int position){
 	for(int i = 1; i < 5 ; i++){
@@ -23,7 +22,6 @@ void displayOnePosition(int position){
 		else
 			setDigit(-i);
 	}
->>>>>>> 84e7e8f6922843353c24fc2d0d91663a97dff4ee
 }
 
 // set digit of LED Display, choose from 1 to 4, negative version to reset segment
