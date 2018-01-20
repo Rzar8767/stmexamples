@@ -31,10 +31,12 @@ void TIM3_IRQHandler(void)
 						activeNumDis[i] =0;
 						++activeNumDis[i+1];
 						}
+					else
+						break;
     			}
     			// overflow of the counter
-    			if(activeNumDis[4] > 9)
-    				activeNumDis[4] = 0;
+    			if(activeNumDis[3] > 9)
+    				activeNumDis[3] = 0;
 
     			// NEVER LET THIS LINE GO
     			TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
@@ -50,7 +52,7 @@ void TIM4_IRQHandler(void)
             	setDisplay(-1*activeDisplay);
             	if(activeDisplay >= 4) activeDisplay =0;
             	++activeDisplay;
-            	displayNumber(activeNumDis[4-activeDisplay+1]);
+            	displayNumber(activeNumDis[4-activeDisplay]);
             	setDisplay(activeDisplay);
 
             	// NEVER LET THIS LINE GO
