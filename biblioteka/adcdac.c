@@ -68,7 +68,7 @@ void configADC(ADC_TypeDef* ADCx, FunctionalState state) {
 }
 
 //starts ADC when you set it to DISABLED mode
-startADC(ADC_TypeDef* ADCx) {
+void startADC(ADC_TypeDef* ADCx) {
 	ADC_Cmd(ADCx, ENABLE);
 	ADC_SoftwareStartConv(ADCx);
 }
