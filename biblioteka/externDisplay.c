@@ -11,10 +11,18 @@ void initExternDisplay();
 void setDigit(int num);
 void displayNumber(int num);
 void initNumbers();
+void displayOnePosition(int position);
 
-
-
-
+// sets only one digit at time
+void displayOnePosition(int position){
+	for(int i = 1; i < 5 ; i++){
+		if(i == position){
+			setDigit(i);
+		}
+		else
+			setDigit(-i);
+	}
+}
 
 // set digit of LED Display, choose from 1 to 4, negative version to reset segment
 void setDigit(int num)

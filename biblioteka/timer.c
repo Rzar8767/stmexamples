@@ -96,7 +96,8 @@ void TIM4_IRQHandler(void)
             	GPIO_ToggleBits(GPIOD, GPIO_Pin_12);
                 TIM_ClearITPendingBit(TIM4, TIM_IT_Update);
          	}
-}*/
+}
+*/
 
 //////////////////////////////////////          PWM          /////////////////////////////////////////////
 
@@ -183,8 +184,6 @@ void setPWMWidthPeriod(TIM_TypeDef* TIMx, uint8_t channel, uint8_t percent, uint
 	}
 }
 
-//You can set PWM channel width in percent whenever you want (but for sure after PWM init), this one uses miliseconds
-//setPWMWidthMiliseconds(TIM4,1,20, 100);
 //You can set PWM channel width in percent whenever you want (but for sure after PWM init), this one uses period
 //setPWMWidthMiliseconds(TIM4, 1, 20, 100);
 void setPWMWidthMiliseconds(TIM_TypeDef* TIMx, uint8_t channel, uint8_t percent, uint16_t miliseconds){
