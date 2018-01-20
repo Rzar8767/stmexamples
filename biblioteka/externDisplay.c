@@ -10,6 +10,7 @@ uint16_t numberSegment[10];
 void initExternDisplay();
 void setDigit(int num);
 void displayNumber(int num);
+void displayNothing();
 void initNumbers();
 
 
@@ -89,6 +90,11 @@ void displayNumber(int num)
 		return;
 	GPIO_SetBits(GPIOE, numberSegment[8]);
 	GPIO_ResetBits(GPIOE, numberSegment[num]);
+}
+
+void displayNothing()
+{
+	GPIO_SetBits(GPIOE, numberSegment[8]);
 }
 
 /*
