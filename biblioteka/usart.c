@@ -48,7 +48,7 @@ void initUsart(void)
 }
 
 
-
+// initUsartIRQ(USART3, USART3_IRQn, 0);
 void initUsartIRQ(USART_TypeDef* USARTx, uint8_t USARTx_IRQn, uint8_t priority )
 {
 	//struktura do konfiguracji kontrolera NVIC
@@ -113,4 +113,5 @@ void USART3_IRQHandler(void)
 		}
 		// odebrany bajt znajduje sie w rejestrze USART3->DR
 	}
-}*/
+}
+*/
