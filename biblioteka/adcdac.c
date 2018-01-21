@@ -101,7 +101,8 @@ int main(void)
 
 //////////////////////////////////////          DAC          /////////////////////////////////////////////
 
-//initDAC(GPIO_Pin_5);
+//  initDAC(GPIO_Pin_4);	DAC1
+//  initDAC(GPIO_Pin_5);	DAC2
 void initDAC(uint16_t GPIO_Pin_x) {
 	//Doprowadzenie zasilania i taktowania
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA , ENABLE); // zegar dla portu GPIO z którego wykorzystany zostanie pin jako wejœcie ADC (PA1)
