@@ -4,7 +4,13 @@
 void initADC(uint32_t RCC_APB2Periph_ADCx, uint16_t GPIO_Pin_x);
 void configADC(ADC_TypeDef* ADCx, FunctionalState state);
 void startADC(ADC_TypeDef* ADCx);
+void initDAC(uint16_t GPIO_Pin_x);
 
+unsigned int voltsFromDigital(unsigned int digitalValue);
+unsigned int DigitalToVoltValue(unsigned int unit, unsigned int value);
+unsigned int GetVoltUnit(unsigned int vcc);
+
+//////////////////////////////////////          ADC          /////////////////////////////////////////////
 
 void initADC(uint32_t RCC_APB2Periph_ADCx, uint16_t GPIO_Pin_x) {
 
@@ -71,4 +77,90 @@ void configADC(ADC_TypeDef* ADCx, FunctionalState state) {
 void startADC(ADC_TypeDef* ADCx) {
 	ADC_Cmd(ADCx, ENABLE);
 	ADC_SoftwareStartConv(ADCx);
+}
+
+uint16_t getADCvoltage(ADC_TypeDef* ADCx){
+	return voltsFromDigital(ADC_GetConversionValue(ADCx));
+}
+/*///////////////////////////                  ADC Usage example
+int ADC1_Result = 0;
+int ADC1V_Value = 0;
+
+int main(void)
+{
+	initADC(RCC_APB2Periph_ADC1, GPIO_Pin_1);
+	configADC(ADC1,ENABLE);
+
+	for(;;) {
+		while(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);
+		ADC1_Result = ADC_GetConversionValue(ADC1);
+		ADC1V_Value=ADC1_Result*7204/10000; //mV
+	}
+}*/
+
+//////////////////////////////////////          DAC          /////////////////////////////////////////////
+
+//initDAC(GPIO_Pin_5);
+void initDAC(uint16_t GPIO_Pin_x) {
+	//Doprowadzenie zasilania i taktowania
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA , ENABLE); // zegar dla portu GPIO z którego wykorzystany zostanie pin jako wejœcie ADC (PA1)
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC, ENABLE); // zegar dla modu³u DAC
+
+	GPIO_InitTypeDef GPIO_InitStructure;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_x;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+	DAC_InitTypeDef DAC_InitStructure;
+	//wy³¹czenie zewnêtrznego wyzwalania
+	//konwersja mo¿e byæ wyzwalana timerem, stanem wejœcia itd. (szczegó³y w dokumentacji)
+	DAC_InitStructure.DAC_Trigger = DAC_Trigger_None;
+	//nast. 2 linie - wy³¹czamy generator predefiniowanych przebiegów //wyjœciowych (wartoœci zadajemy sami, za pomoc¹ odpowiedniej funkcji)
+	DAC_InitStructure.DAC_WaveGeneration = DAC_WaveGeneration_None;
+	DAC_InitStructure.DAC_LFSRUnmask_TriangleAmplitude = DAC_LFSRUnmask_Bit0;
+	//w³¹czamy buforowanie sygna³u wyjœciowego
+	DAC_InitStructure.DAC_OutputBuffer = DAC_OutputBuffer_Enable;
+
+	uint32_t DAC_Channel_x;
+	if(GPIO_Pin_x == GPIO_Pin_4)
+		DAC_Channel_x = DAC_Channel_1;
+	else if(GPIO_Pin_x == GPIO_Pin_5)
+			DAC_Channel_x = DAC_Channel_2;
+
+	DAC_Init(DAC_Channel_x, &DAC_InitStructure);
+
+	DAC_Cmd(DAC_Channel_x, ENABLE);
+}
+
+void setDACvalue(uint16_t GPIO_Pin_x,uint16_t value){
+	if(GPIO_Pin_x == GPIO_Pin_4)
+		DAC_SetChannel1Data(DAC_Align_12b_R, value);
+	else if(GPIO_Pin_x == GPIO_Pin_5)
+		DAC_SetChannel2Data(DAC_Align_12b_R, value);
+}
+
+//////////////////////////////////////          Helpers          /////////////////////////////////////////
+
+unsigned int voltsFromDigital(unsigned int digitalValue){
+	return 	DigitalToVoltValue(7204,digitalValue);
+}
+
+unsigned int DigitalToVoltValue(unsigned int unit, unsigned int value) {
+	//for 2,95V 1unit is 0,7204mV, we take 7204, so thats why we divide by 10000 (4 zeros)
+	unsigned int result = value*unit/10000;
+	return result; //mV
+
+}
+
+unsigned int VoltToDigitalValue(unsigned int vcc, unsigned int volt) {
+	//volt & vcc must be multiplied by 10000000 (4 zeros accuracy + 3 zeros from mV)
+	unsigned int result = (volt*4095)/vcc;
+		return result;
+}
+
+unsigned int GetVoltUnit(unsigned int vcc) {
+	//vcc must be multiplied by 10000000  (4 zeros accuracy + 3 zeros from mV)
+	unsigned int result = vcc/4095;
+	return result; //mV
 }
