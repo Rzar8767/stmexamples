@@ -170,14 +170,14 @@ unsigned int GetVoltUnit(unsigned int vcc) {
 
 // digital to analog
 // result returned in second parameter via pointer
-uint16_t convToValue(double* volts)
+uint16_t convToValue_d(double* volts)
 {
-	return *volts* 1000.0 * 2.95 / 4095.0;
+	return *volts / 2.95 * 4095.0;
 }
 // value to volts
 // value/4095 * 2.95
 // result returned in second parameter via pointer
-void convToVolts(uint16_t value, double* volts)
+void convToVolts_d(uint16_t value, double* volts)
 {
 	*volts = (double) value / 4095.0 * 2.95;
 }
