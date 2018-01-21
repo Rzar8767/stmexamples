@@ -11,7 +11,8 @@ unsigned int DigitalToVoltValue(unsigned int unit, unsigned int value);
 unsigned int GetVoltUnit(unsigned int vcc);
 
 //////////////////////////////////////          ADC          /////////////////////////////////////////////
-
+// adc1: initADC(RCC_APB2Periph_ADC1, GPIO_Pin_1);
+// adc2: initADC(RCC_APB2Periph_ADC2, GPIO_Pin_2);
 void initADC(uint32_t RCC_APB2Periph_ADCx, uint16_t GPIO_Pin_x) {
 
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA , ENABLE); // GPIO clock init
@@ -163,4 +164,20 @@ unsigned int GetVoltUnit(unsigned int vcc) {
 	//vcc must be multiplied by 10000000  (4 zeros accuracy + 3 zeros from mV)
 	unsigned int result = vcc/4095;
 	return result; //mV
+}
+
+//////////////////////////////////////          Helpers DOUBLE          /////////////////////////////////////////
+
+// digital to analog
+// result returned in second parameter via pointer
+uint16_t convToValue(double* volts)
+{
+	return *volts* 1000.0 * 2.95 / 4095.0;
+}
+// value to volts
+// value/4095 * 2.95
+// result returned in second parameter via pointer
+void convToVolts(uint16_t value, double* volts)
+{
+	*volts = (double) value / 4095.0 * 2.95;
 }
