@@ -6,7 +6,7 @@ PA0 = onboard Button (blue)
 PA1 = ADC1 input
 PA2 = ADC2 input
 
-// DAC
+// DAC // connect to one of the ADC input
 PA4 = DAC channel 1 output
 PA5 = DAC channel 2 output
 
