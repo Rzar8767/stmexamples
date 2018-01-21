@@ -101,7 +101,8 @@ int main(void)
 
 //////////////////////////////////////          DAC          /////////////////////////////////////////////
 
-//initDAC(GPIO_Pin_5);
+//  initDAC(GPIO_Pin_4);	DAC1
+//  initDAC(GPIO_Pin_5);	DAC2
 void initDAC(uint16_t GPIO_Pin_x) {
 	//Doprowadzenie zasilania i taktowania
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA , ENABLE); // zegar dla portu GPIO z którego wykorzystany zostanie pin jako wejœcie ADC (PA1)
@@ -166,14 +167,31 @@ unsigned int GetVoltUnit(unsigned int vcc) {
 	return result; //mV
 }
 
+// volts to value
+// volts/2.95 * 4095.0
+uint16_t convToValue_i(uint16_t volts)
+{
+	return volts * 10000/7204;
+}
+
+// value to volts
+// value/4095 * 2.95
+//
+uint16_t convToVolts_i(uint16_t value)
+{
+	return value *7204/10000;
+}
+
+
 //////////////////////////////////////          Helpers DOUBLE          /////////////////////////////////////////
 
-// digital to analog
-// result returned in second parameter via pointer
+// volts to value
+// volts/2.95 * 4095.0
 uint16_t convToValue_d(double* volts)
 {
 	return *volts / 2.95 * 4095.0;
 }
+
 // value to volts
 // value/4095 * 2.95
 // result returned in second parameter via pointer
