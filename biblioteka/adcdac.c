@@ -135,7 +135,7 @@ void initDAC(uint16_t GPIO_Pin_x) {
 	DAC_Cmd(DAC_Channel_x, ENABLE);
 }
 
-void setDACvalue(uint16_t GPIO_Pin_x,uint16_t value){
+void setDACvalue(uint16_t GPIO_Pin_x, uint16_t value){
 	if(GPIO_Pin_x == GPIO_Pin_4)
 		DAC_SetChannel1Data(DAC_Align_12b_R, value);
 	else if(GPIO_Pin_x == GPIO_Pin_5)
@@ -145,7 +145,7 @@ void setDACvalue(uint16_t GPIO_Pin_x,uint16_t value){
 //////////////////////////////////////          Helpers          /////////////////////////////////////////
 
 unsigned int voltsFromDigital(unsigned int digitalValue){
-	return 	DigitalToVoltValue(7204,digitalValue);
+	return 	DigitalToVoltValue(7204, digitalValue);
 }
 
 unsigned int DigitalToVoltValue(unsigned int unit, unsigned int value) {
