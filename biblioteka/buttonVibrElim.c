@@ -42,6 +42,7 @@ void TIM2_IRQHandler(void)
 
 void initVibrElim()
 {
+	// init the EXTI for the button
 	initExtiIRQ(EXTI0_IRQn, EXTI_Line0,EXTI_PortSourceGPIOA, EXTI_PinSource0);
 
 	// the time you are required to press the button for it to be a valid press, in ms
